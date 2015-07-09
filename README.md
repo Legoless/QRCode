@@ -10,6 +10,18 @@ Technologies: **.NET Framework**, **C#**, **Windows Forms**
 
 # Screenshots
 
+### Main Interface
+
+![QRCode](https://raw.githubusercontent.com/Legoless/QRCode/master/Resources/QRCode_1.png)
+
+### Advanced Settings
+
+![QRCode](https://raw.githubusercontent.com/Legoless/QRCode/master/Resources/QRCode_2.png)
+
+### Debug Information
+
+![QRCode](https://raw.githubusercontent.com/Legoless/QRCode/master/Resources/QRCode_3.png)
+
 # License
 
 **QRCode** is available under the **GPL** license. See [LICENSE](https://github.com/Legoless/QRCode/blob/master/LICENSE) file for more information.

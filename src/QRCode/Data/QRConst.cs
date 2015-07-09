@@ -1,31 +1,48 @@
-﻿namespace QRCode.Data
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="QrConst.cs" company="arvystate.net">
+//   arvystate.net
+// </copyright>
+// <summary>
+//   The <c>QR</c> code constants.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace QRCode.Data
 {
-    public class QRConst
+    /// <summary>
+    /// The <c>QR</c> code constants.
+    /// </summary>
+    public static class QrConst
     {
-        //
-        // QRCode uses GF (2 pow 8) Galois Field
-        //
-
-        // x^8 + x^4 + x^3 + x^2 + 1 -> 100011101
-        public const int QRCodeField = 0x011D;
-        public const int GfFieldCount = 256;
-
-        //
-        // Format information generator polynomial BCH (15,5) -> Annex C -> Format information
-        //
-
-        // x10 + x8 + x5 + x4 + x2 + x + 1 -> 101 0011 0111
-        public const int GenPolyFormat = 0x537;
-
         // XOR constant for format
         // 101010000010010
+        #region Constants
+
+        /// <summary>
+        /// The constant format <c>xor</c>.
+        /// </summary>
         public const int ConstFormatXor = 0x5412;
 
-        //
-        // Version information generator polynomial BCH (18,6) -> Annex D -> Version information
-        //
+        /// <summary>
+        /// The gen poly format.
+        /// </summary>
+        public const int GenPolyFormat = 0x537;
 
-        // x12 + x11 + x9 + x8 + x5 + x2 + 1 -> 1 1111 0010 0101
+        /// <summary>
+        /// The gen poly version.
+        /// </summary>
         public const int GenPolyVersion = 0x1f25;
+
+        /// <summary>
+        /// The galois field count.
+        /// </summary>
+        public const int GfFieldCount = 256;
+
+        /// <summary>
+        /// The <c>QR</c> code field.
+        /// </summary>
+        public const int QrCodeField = 0x011D;
+
+        #endregion
     }
 }

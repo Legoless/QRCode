@@ -1,10 +1,37 @@
-﻿namespace QRCode.Data
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="QrType.cs" company="arvystate.net">
+//   arvystate.net
+// </copyright>
+// <summary>
+//   The <c>QR</c> code type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace QRCode.Data
 {
-    public enum QRType
+    /// <summary>
+    /// The <c>QR</c> code type.
+    /// </summary>
+    public enum QrType
     {
-        Numeric = 0,
-        AlphaNumeric = 1,
-        Binary = 2,
+        /// <summary>
+        /// The numeric.
+        /// </summary>
+        Numeric = 0, 
+
+        /// <summary>
+        /// The alpha numeric.
+        /// </summary>
+        AlphaNumeric = 1, 
+
+        /// <summary>
+        /// The binary.
+        /// </summary>
+        Binary = 2, 
+
+        /// <summary>
+        /// The japanese.
+        /// </summary>
         Japanese = 3
     }
 }

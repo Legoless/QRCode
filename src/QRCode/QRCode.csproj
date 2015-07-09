@@ -37,33 +37,37 @@
     <ApplicationIcon>QRCode.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\QRAlignment.cs" />
-    <Compile Include="Data\QRBreakPoint.cs" />
-    <Compile Include="Data\QRCodeTable.cs" />
-    <Compile Include="Data\QRConst.cs" />
-    <Compile Include="Data\QRError.cs" />
-    <Compile Include="Data\QRPixel.cs" />
-    <Compile Include="Data\QRType.cs" />
-    <Compile Include="Data\QRVersion.cs" />
-    <Compile Include="ErrorCorrection\QRBoseChaudhuriHocquenghem.cs" />
-    <Compile Include="ErrorCorrection\QRGaloisField.cs" />
-    <Compile Include="ErrorCorrection\QRGaloisFieldPoly.cs" />
-    <Compile Include="ErrorCorrection\QRReedSolomon.cs" />
+    <Compile Include="Data\QrAlignment.cs" />
+    <Compile Include="Data\QrBreakPoint.cs" />
+    <Compile Include="Data\QrErrorBits.cs" />
+    <Compile Include="Data\QrCodeTable.cs" />
+    <Compile Include="Data\QrConst.cs" />
+    <Compile Include="Data\QrError.cs" />
+    <Compile Include="Data\QrPixel.cs" />
+    <Compile Include="Data\QrType.cs" />
+    <Compile Include="Data\QrVersion.cs" />
+    <Compile Include="ErrorCorrection\QrBoseChaudhuriHocquenghem.cs" />
+    <Compile Include="ErrorCorrection\QrGaloisField.cs" />
+    <Compile Include="ErrorCorrection\QrGaloisFieldPoly.cs" />
+    <Compile Include="ErrorCorrection\QrReedSolomon.cs" />
     <Compile Include="Extensions\BinaryExtensions.cs" />
     <Compile Include="Extensions\Poly.cs" />
     <Compile Include="Extensions\Term.cs" />
     <Compile Include="Extensions\TermCollection.cs" />
-    <Compile Include="Forms\Form1.cs">
+    <Compile Include="Forms\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Form1.designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Forms\MainWindow.designer.cs">
+      <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\About.cs">
       <SubType>Form</SubType>
@@ -71,15 +75,15 @@
     <Compile Include="Forms\About.designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
-    <Compile Include="Library\QRBlock.cs" />
-    <Compile Include="Library\QRCodeCreator.cs" />
-    <Compile Include="Library\QRFormat.cs" />
-    <Compile Include="Library\QRImage.cs" />
-    <Compile Include="Library\QRMask.cs" />
+    <Compile Include="Library\QrBlock.cs" />
+    <Compile Include="Library\QrCodeCreator.cs" />
+    <Compile Include="Library\QrFormat.cs" />
+    <Compile Include="Library\QrImage.cs" />
+    <Compile Include="Library\QrMask.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\MainWindow.resx">
+      <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\About.resx">
       <DependentUpon>About.cs</DependentUpon>
@@ -94,6 +98,13 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

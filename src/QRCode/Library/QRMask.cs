@@ -1,73 +1,116 @@
-﻿using System.Collections.Generic;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="QrMask.cs" company="arvystate.net">
+//   arvystate.net
+// </copyright>
+// <summary>
+//   The <c>QR</c> mask object wrapper
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace QRCode.Library
 {
-    public class QRMask
+    using System.Collections.Generic;
+
+    using NLog;
+
+    /// <summary>
+    /// The <c>QR</c> mask object wrapper
+    /// </summary>
+    public class QrMask
     {
-        private readonly int _type;
+        #region Static Fields
 
-        public QRMask (int type)
+        /// <summary>
+        /// The logger.
+        /// </summary>
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
+        #region Fields
+
+        /// <summary>
+        /// The _type.
+        /// </summary>
+        private readonly int type;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="QrMask"/> class.
+        /// </summary>
+        /// <param name="codeType">
+        /// The type.
+        /// </param>
+        public QrMask(int codeType)
         {
-            _type = type;
+            this.type = codeType;
         }
 
-        public int GetMaskType ()
-        {
-            return _type % 8;
-        }
+        #endregion
 
-        public Queue<bool> GetBits ()
-        {
-            Queue<bool> bits = new Queue<bool> ();
+        #region Public Methods and Operators
 
-            switch (_type)
+        /// <summary>
+        /// The get bits.
+        /// </summary>
+        /// <returns>
+        /// Bits in queue.
+        /// </returns>
+        public Queue<bool> GetBits()
+        {
+            Queue<bool> bits = new Queue<bool>();
+
+            switch (this.type)
             {
                 case 1:
-                    bits.Enqueue (false);
-                    bits.Enqueue (false);
-                    bits.Enqueue (true);
+                    bits.Enqueue(false);
+                    bits.Enqueue(false);
+                    bits.Enqueue(true);
 
                     break;
                 case 2:
-                    bits.Enqueue (false);
-                    bits.Enqueue (true);
-                    bits.Enqueue (false);
+                    bits.Enqueue(false);
+                    bits.Enqueue(true);
+                    bits.Enqueue(false);
 
                     break;
                 case 3:
-                    bits.Enqueue (false);
-                    bits.Enqueue (true);
-                    bits.Enqueue (true);
+                    bits.Enqueue(false);
+                    bits.Enqueue(true);
+                    bits.Enqueue(true);
 
                     break;
                 case 4:
-                    bits.Enqueue (true);
-                    bits.Enqueue (false);
-                    bits.Enqueue (false);
+                    bits.Enqueue(true);
+                    bits.Enqueue(false);
+                    bits.Enqueue(false);
 
                     break;
                 case 5:
-                    bits.Enqueue (true);
-                    bits.Enqueue (false);
-                    bits.Enqueue (true);
+                    bits.Enqueue(true);
+                    bits.Enqueue(false);
+                    bits.Enqueue(true);
 
                     break;
                 case 6:
-                    bits.Enqueue (true);
-                    bits.Enqueue (true);
-                    bits.Enqueue (false);
+                    bits.Enqueue(true);
+                    bits.Enqueue(true);
+                    bits.Enqueue(false);
 
                     break;
                 case 7:
-                    bits.Enqueue (true);
-                    bits.Enqueue (true);
-                    bits.Enqueue (true);
+                    bits.Enqueue(true);
+                    bits.Enqueue(true);
+                    bits.Enqueue(true);
 
                     break;
                 default:
-                    bits.Enqueue (false);
-                    bits.Enqueue (false);
-                    bits.Enqueue (false);
+                    bits.Enqueue(false);
+                    bits.Enqueue(false);
+                    bits.Enqueue(false);
 
                     break;
             }
@@ -75,9 +118,32 @@ namespace QRCode.Library
             return bits;
         }
 
-        public bool Test (int y, int x)
+        /// <summary>
+        /// The get mask type.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
+        public int GetMaskType()
         {
-            switch (_type)
+            return this.type % 8;
+        }
+
+        /// <summary>
+        /// Method tests if the pixel belongs to the mask.
+        /// </summary>
+        /// <param name="y">
+        /// The y.
+        /// </param>
+        /// <param name="x">
+        /// The x.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public bool Test(int y, int x)
+        {
+            switch (this.type)
             {
                 case 1:
                     return (y % 2) == 0;
@@ -90,17 +156,23 @@ namespace QRCode.Library
                 case 5:
                     return ((y * x) % 2) + ((y * x) % 3) == 0;
                 case 6:
-                    return ((y * x) % 2) + ((y * x) % 3) % 2 == 0;
+                    return (((y * x) % 2) + ((y * x) % 3)) % 2 == 0;
                 case 7:
-                    return ((y + x) % 2) + ((y * x) % 3) % 2 == 0;
+                    return (((y + x) % 2) + ((y * x) % 3)) % 2 == 0;
                 default:
                     return (y + x) % 2 == 0;
             }
         }
 
-        public override string ToString ()
+        /// <summary>
+        /// Convert object to string representation.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public override string ToString()
         {
-            switch (_type)
+            switch (this.type)
             {
                 case 1:
                     return "(y % 2) == 0";
@@ -113,12 +185,14 @@ namespace QRCode.Library
                 case 5:
                     return "((y * x) % 2) + ((y * x) % 3) == 0";
                 case 6:
-                    return "((y * x) % 2) + ((y * x) % 3) % 2 == 0";
+                    return "(((y * x) % 2) + ((y * x) % 3)) % 2 == 0";
                 case 7:
-                    return "((y + x) % 2) + ((y * x) % 3) % 2 == 0";
+                    return "(((y + x) % 2) + ((y * x) % 3)) % 2 == 0";
                 default:
                     return "(y + x) % 2 == 0";
             }
         }
+
+        #endregion
     }
 }

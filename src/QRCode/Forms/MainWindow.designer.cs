@@ -1,6 +1,6 @@
 ﻿namespace QRCode.Forms
 {
-    partial class Form1
+    partial class MainWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -199,8 +199,8 @@
             // 
             this.toolStripStatusLabel1.Font = new System.Drawing.Font("Segoe UI Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(333, 17);
-            this.toolStripStatusLabel1.Text = "Copyright © 2011 ArvYStaTe.net, designed for FERI - v1.0.0 Build 5291";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(327, 17);
+            this.toolStripStatusLabel1.Text = "Copyright © 2013 ArvYStaTe.net, designed for FERI - v1.1.0 Build 5352";
             // 
             // tabControl1
             // 
@@ -610,7 +610,7 @@
             this.label11.Text = "Break point will stop generate process at desired step, result will be displayed " +
     "up to\r\ngenerated point.";
             // 
-            // Form1
+            // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -620,9 +620,9 @@
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "MainWindow";
             this.Text = "QRCode";
-            this.Shown += new System.EventHandler(this.Form1Shown);
+            this.Shown += new System.EventHandler(this.MainWindowShown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);

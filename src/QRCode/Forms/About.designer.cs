@@ -78,7 +78,7 @@
             this.label3.Padding = new System.Windows.Forms.Padding(3);
             this.label3.Size = new System.Drawing.Size(338, 110);
             this.label3.TabIndex = 4;
-            this.label3.Text = "QRCode\r\n\r\nVersion 1.0.0 (Build 1.0.0.5291)\r\n\r\nCopyright (C) 2004-2011 ArvYStaTe.n" +
+            this.label3.Text = "QRCode\r\n\r\nVersion 1.1.0 (Build 1.1.0.5352)\r\n\r\nCopyright (C) 2004-2013 ArvYStaTe.n" +
     "et\r\n\r\nQRCode by Legoless is licensed under a Creative Commons License.\r\nFor more" +
     " information visit websites:";
             // 

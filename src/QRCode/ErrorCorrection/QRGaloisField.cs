@@ -1,135 +1,260 @@
-﻿using System;
-using QRCode.Data;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="QrGaloisField.cs" company="arvystate.net">
+//   arvystate.net
+// </copyright>
+// <summary>
+//   The galois field.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace QRCode.ErrorCorrection
 {
-    internal class QRGaloisField
+    using System;
+
+    using NLog;
+
+    using QRCode.Data;
+
+    /// <summary>
+    /// The galois field.
+    /// </summary>
+    internal class QrGaloisField
     {
-        private readonly int _primitive;
-        private readonly int _size;
+        #region Static Fields
 
-        private int[] _antiLogTable;
-        private int[] _logTable;
+        /// <summary>
+        /// The logger.
+        /// </summary>
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-        public QRGaloisField ()
+        #endregion
+
+        #region Fields
+
+        /// <summary>
+        /// The _primitive.
+        /// </summary>
+        private readonly int primitive;
+
+        /// <summary>
+        /// The _size.
+        /// </summary>
+        private readonly int size;
+
+        /// <summary>
+        /// The _anti log table.
+        /// </summary>
+        private int[] antiLogTable;
+
+        /// <summary>
+        /// The _log table.
+        /// </summary>
+        private int[] logTable;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="QrGaloisField"/> class.
+        /// </summary>
+        public QrGaloisField()
         {
-            _primitive = QRConst.QRCodeField;
-            _size = QRConst.GfFieldCount;
+            this.primitive = QrConst.QrCodeField;
+            this.size = QrConst.GfFieldCount;
 
-            //
             // Generate log and antilog tables
-            //
-
-            Init ();
+            this.Init();
         }
 
-        public QRGaloisFieldPoly Zero
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the one.
+        /// </summary>
+        public QrGaloisFieldPoly One { get; set; }
+
+        /// <summary>
+        /// Gets or sets the size.
+        /// </summary>
+        public int Size { get; set; }
+
+        /// <summary>
+        /// Gets or sets the zero.
+        /// </summary>
+        public QrGaloisFieldPoly Zero { get; set; }
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// The add or subtract.
+        /// </summary>
+        /// <param name="a">
+        /// The a.
+        /// </param>
+        /// <param name="b">
+        /// The b.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
+        public static int AddOrSubtract(int a, int b)
         {
-            get;
-            set;
+            return a ^ b;
         }
 
-        public QRGaloisFieldPoly One
-        {
-            get;
-            set;
-        }
-
-        public int Size
-        {
-            get;
-            set;
-        }
-
-        public QRGaloisFieldPoly BuildMonomial (int power, int coefficient)
+        /// <summary>
+        /// The build monomial.
+        /// </summary>
+        /// <param name="power">
+        /// The power.
+        /// </param>
+        /// <param name="coefficient">
+        /// The coefficient.
+        /// </param>
+        /// <returns>
+        /// The <see cref="QrGaloisFieldPoly"/>.
+        /// </returns>
+        public QrGaloisFieldPoly BuildMonomial(int power, int coefficient)
         {
             if (coefficient == 0)
             {
-                return Zero;
+                return this.Zero;
             }
 
             int[] coefficients = new int[power + 1];
             coefficients[0] = coefficient;
 
-            return new QRGaloisFieldPoly (this, coefficients);
+            return new QrGaloisFieldPoly(this, coefficients);
         }
 
-        public static int AddOrSubtract (int a, int b)
+        /// <summary>
+        /// The get exponent.
+        /// </summary>
+        /// <param name="a">
+        /// The a.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
+        public int GetExponent(int a)
         {
-            return a ^ b;
+            return this.antiLogTable[a];
         }
 
-        public int GetExponent (int a)
-        {
-            return _antiLogTable[a];
-        }
-
-        public int GetLog (int a)
+        /// <summary>
+        /// The get log.
+        /// </summary>
+        /// <param name="a">
+        /// The a.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
+        /// <exception cref="ArgumentException">
+        /// Exception if A is zero.
+        /// </exception>
+        public int GetLog(int a)
         {
             if (a == 0)
             {
-                throw new ArgumentException ();
+                throw new ArgumentException();
             }
 
-            return _logTable[a];
+            return this.logTable[a];
         }
 
-        public int Inverse (int a)
+        /// <summary>
+        /// The inverse.
+        /// </summary>
+        /// <param name="a">
+        /// The a.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
+        /// <exception cref="ArithmeticException">
+        /// Exception if A is zero.
+        /// </exception>
+        public int Inverse(int a)
         {
             if (a == 0)
             {
-                throw new ArithmeticException ();
+                throw new ArithmeticException();
             }
 
-            return _antiLogTable[_size - _logTable[a] - 1];
+            return this.antiLogTable[this.size - this.logTable[a] - 1];
         }
 
-        public int Multiply (int a, int b)
+        /// <summary>
+        /// The multiply.
+        /// </summary>
+        /// <param name="a">
+        /// The a.
+        /// </param>
+        /// <param name="b">
+        /// The b.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
+        public int Multiply(int a, int b)
         {
             if (a == 0 || b == 0)
             {
                 return 0;
             }
 
-            if ((a < 0) || (b < 0) || (a >= _size) || (b >= _size))
+            if ((a < 0) || (b < 0) || (a >= this.size) || (b >= this.size))
             {
                 a++;
             }
 
-            int logSum = _logTable[a] + _logTable[b];
-            return _antiLogTable[(logSum % _size) + logSum / _size];
+            int logSum = this.logTable[a] + this.logTable[b];
+            return this.antiLogTable[(logSum % this.size) + (logSum / this.size)];
         }
 
-        private void Init ()
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The initialization method.
+        /// </summary>
+        private void Init()
         {
-            _antiLogTable = new int[_size];
-            _logTable = new int[_size];
+            this.antiLogTable = new int[this.size];
+            this.logTable = new int[this.size];
 
             int x = 1;
 
-            for (int i = 0; i < _size; i++)
+            for (int i = 0; i < this.size; i++)
             {
-                _antiLogTable[i] = x;
+                this.antiLogTable[i] = x;
 
                 x = x << 1;
 
-                if (x >= _size)
+                if (x >= this.size)
                 {
-                    x ^= _primitive;
-                    x &= _size - 1;
+                    x ^= this.primitive;
+                    x &= this.size - 1;
                 }
             }
-            for (int i = 0; i < _size - 1; i++)
+
+            for (int i = 0; i < this.size - 1; i++)
             {
-                _logTable[_antiLogTable[i]] = i;
+                this.logTable[this.antiLogTable[i]] = i;
             }
 
-            //
             // LogTable[0] should never be used
-            //
-
-            Zero = new QRGaloisFieldPoly (this, new[] {0});
-            One = new QRGaloisFieldPoly (this, new[] {1});
+            this.Zero = new QrGaloisFieldPoly(this, new[] { 0 });
+            this.One = new QrGaloisFieldPoly(this, new[] { 1 });
         }
+
+        #endregion
     }
 }

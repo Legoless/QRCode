@@ -4,9 +4,11 @@ QRCode is an educational project meant for inspection and analysis of the QRCode
 
 # Details
 
-Platform: Windows XP/Vista/7 with .NET Framework 4.0 (required)
+Platform: **Windows XP**/**Vista**/**7** with **.NET** Framework 4.0 (required)
 
-Technologies: .NET Framework, C#, Windows Forms
+Technologies: **.NET Framework**, **C#**, **Windows Forms**
+
+# Screenshots
 
 # License
 
